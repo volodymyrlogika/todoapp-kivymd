@@ -1,0 +1,97 @@
+<TaskListScreen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "20sp"
+
+        MDScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y':0.5}
+            size_hint: .9, .8
+            MDList:
+                id: task_list
+
+        MDBottomAppBar:
+            MDTopAppBar:
+                title: "Мої завдання"
+                icon: "plus"
+                type: "bottom"
+                mode: "end"
+                icon_color: 1, 0.81961, 0.10196, 1
+                on_action_button: 
+                    root.manager.transition.direction = "up"
+                    root.manager.transition.duration = 0.7
+                    root.manager.current = "newtask_screen"
+
+
+<NewTaskScreen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "10sp"
+        size_hint: 1, 0.8
+        pos_hint: {'center_x':0.5, 'y':0.2}
+        MDTopAppBar:
+            title: "Нове завдання"
+            anchor_title: "left"
+        MDTextField:
+            id: task_text
+            hint_text: "Додати завдання"
+            mode: "fill"
+            size_hint_x: 0.9
+            pos_hint: {'center_x':0.5, 'y':0.3}
+        MDBoxLayout:
+            size_hint_x: 0.9
+            pos_hint: {'center_x':0.5}
+            MDLabel:
+                text: "зробити до"
+                size_hint_x: 0.4
+                valigh: "top"
+                pos_hint: {'y':0.1}
+
+            MDIconButton:
+                icon: "calendar"
+                size_hint_x: 0.2
+                pos_hint: {'y':0.5}
+                valigh: "top"
+                on_release: root.show_date_picker()
+            MDLabel:
+                id: date_text
+                size_hint_x: 0.4
+                valigh: "top"
+                pos_hint: {'y':0.1}
+
+        MDBoxLayout:
+            size_hint_x: 0.9
+            pos_hint: {'center_x': 0.5}
+
+            MDRaisedButton:
+                text: "Зберегти"
+                on_release: app.add_task(task_text.text, date_text.text)
+
+            MDFlatButton:
+                text: "Скасувати"
+                on_release: root.back()
+
+
+<TaskItem>:
+    id: task_item
+    markup: True
+
+    LeftCheckbox:
+        id: check
+        on_release: root.checked(check, task_item)
+
+    IconRightWidget:
+        icon: 'delete-outline'
+        theme_text_color: "Custom"
+        text_color: 1, 0, 0, 1
+        on_release: root.delete_task(task_item)
+
+
+
+
+
+
+
+
+            
+        
+        
